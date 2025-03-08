@@ -4,7 +4,7 @@ A Kotlin library for handling various data formats within Android applications.
 
 ## Overview
 
-EmptyFormat provides utilities for working with empty fields in data formats, making it easier to handle cases where data might be missing or incomplete.
+EmptyFormat provides utilities for working with various data formats, making it easier to human readable formats.
 
 ## Installation
 
