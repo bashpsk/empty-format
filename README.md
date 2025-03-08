@@ -1,6 +1,6 @@
 # EmptyFormat
 
-A Kotlin library for handling empty fields in various data formats within Android applications.
+A Kotlin library for handling various data formats within Android applications.
 
 ## Overview
 
@@ -8,16 +8,23 @@ EmptyFormat provides utilities for working with empty fields in data formats, ma
 
 ## Installation
 
-To include EmptyFormat in your project, add the following dependency to your `build.gradle` file:
-
-```groovy
-dependencies {
-
-    implementation 'io.bash_psk:empty-format:1.0.1'
-}
+Add following code to your `settings.gradle` file:
 
 ```kotlin
+
+repositories {
+    maven("https://jitpack.io")
+}
+```
+
+To include EmptyFormat in your project, add the following dependency to your `build.gradle` file:
+
+### Kotlin DSL
+
+```kotlin
+
 dependencies {
 
-    implementation 'io.bash_psk:empty-format:1.0.1'
+    implementation("io.bash_psk:empty-format:1.0.1")
 }
+```
