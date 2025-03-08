@@ -25,6 +25,6 @@ To include EmptyFormat in your project, add the following dependency to your `bu
 
 dependencies {
 
-    implementation("io.bash_psk:empty-format:1.0.1")
+    implementation("io.github.bashpsk:empty-format:1.0.1")
 }
 ```
