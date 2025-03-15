@@ -82,9 +82,9 @@ afterEvaluate {
 
             create<MavenPublication>("mavenJava") {
 
-                groupId = "io.bashpsk.empty-format"
-                artifactId = "format"
-                version = "1.0.1"
+                groupId = "io.github.bashpsk"
+                artifactId = "empty-format"
+                version = "1.0.2"
 
                 from(components["release"])
             }

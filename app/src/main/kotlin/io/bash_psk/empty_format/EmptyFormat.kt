@@ -2,6 +2,9 @@ package io.bash_psk.empty_format
 
 import android.content.Context
 import android.text.format.Formatter
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
+import io.bash_psk.empty_format.EmptyFormat.time
 import kotlinx.datetime.Clock
 import kotlinx.datetime.DatePeriod
 import kotlinx.datetime.DateTimeUnit
@@ -1037,5 +1040,98 @@ object EmptyFormat {
     fun formatNumber(value: Int): String {
 
         return formatNumber(value = value.toLong())
+    }
+
+    /**
+     * Converts a Color object to its hexadecimal string representation.
+     *
+     * This function takes a Color object and returns a string representing the color
+     * in hexadecimal format (e.g., "#RRGGBB" or "#AARRGGBB"). The output format
+     * depends on whether the color has an alpha (transparency) component.
+     *
+     * @param color The Color object to convert.
+     * @return A string representing the hexadecimal value of the color, including
+     * the alpha component if it is not fully opaque. Returns "#000000" for null input.
+     * @sample
+     *     val opaqueRed = Color.rgb(255, 0, 0)
+     *     val hexRed = toColorHex(opaqueRed) // Returns "#FF0000"
+     *
+     *     val transparentBlue = Color.argb(128, 0, 0, 255)
+     *     val hexTransparentBlue = toColorHex(transparentBlue) // Returns "#800000FF"
+     *
+     *     val nullColor: Color? = null
+     *     val hexNull = toColorHex(nullColor) // Returns "#000000"
+     */
+    @JvmStatic
+    fun toColorHex(color: Color): String {
+
+        val alpha = (color.alpha * 255).toInt()
+        val red = (color.red * 255).toInt()
+        val green = (color.green * 255).toInt()
+        val blue = (color.blue * 255).toInt()
+
+        return String.format(
+            locale = Locale.getDefault(),
+            format = "%02X%02X%02X%02X",
+            alpha,
+            red,
+            green,
+            blue
+        )
+    }
+
+    /**
+     * Converts a hexadecimal color string to an Android [Color] object.
+     *
+     * This function supports hexadecimal color strings in the following formats:
+     * - `#RRGGBB` (e.g., "#FF0000" for red)
+     * - `#AARRGGBB` (e.g., "#80FF0000" for semi-transparent red)
+     * - `#RGB` (e.g., "#F00" for red, shorthand notation)
+     * - `#ARGB` (e.g., "#8F00" for semi-transparent red, shorthand notation)
+     *
+     * The hexadecimal values are case-insensitive.
+     *
+     * @param hex The hexadecimal color string to convert. Must start with '#'.
+     * @return The corresponding [Color] object.
+     */
+    @JvmStatic
+    fun hexToColor(hex: String): Color {
+
+        return try {
+
+            Color(color = hex.toLong(radix = 16))
+        } catch (exception: Exception) {
+
+            SetLog.setError(message = exception.message, throwable = exception)
+
+            Color.Unspecified
+        }
+    }
+
+    /**
+     * Converts a hexadecimal color string to an Android color integer.
+     *
+     * This function takes a hexadecimal color string as input and returns the corresponding
+     * Android color integer. The input string can be in the following formats:
+     * - "#RRGGBBAA" (e.g., "#FF0000FF" for red with full opacity)
+     *
+     * If the input string is not in a valid hexadecimal format, or if it does not represent
+     * a valid color, the function will return an [Color.Unspecified].
+     *
+     * @param hex The hexadecimal color string.
+     * @return The Android color integer.
+     */
+    @JvmStatic
+    fun toAndroidColor(hex: String): Int {
+
+        return try {
+
+            hex.toLong(radix = 16).toInt()
+        } catch (exception: Exception) {
+
+            SetLog.setError(message = exception.message, throwable = exception)
+
+            Color.Unspecified.toArgb()
+        }
     }
 }
