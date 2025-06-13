@@ -82,6 +82,7 @@ dependencies {
 
     //  KOTLINX         :
     implementation(libs.kotlinx.datetime)
+    implementation(libs.kotlinx.collections.immutable)
 }
 
 publishing {
