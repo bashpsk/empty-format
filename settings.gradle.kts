@@ -20,4 +20,5 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "Empty Format"
+include(":empty-format")
 include(":app")

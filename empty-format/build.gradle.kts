@@ -1,27 +1,26 @@
 plugins {
 
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.kotlin.serialization)
+    id("maven-publish")
 }
 
 android {
 
-    namespace = "io.bashpsk.emptyformatdemo"
+    namespace = "io.bashpsk.emptyformat"
     compileSdk = 36
 
     defaultConfig {
 
-        applicationId = "io.bashpsk.emptyformatdemo"
-        minSdk = 26
-        targetSdk = 36
-        versionCode = 1
-        versionName = "1.0.0"
+        minSdk = 24
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
+
 
     buildTypes {
 
@@ -51,6 +50,14 @@ android {
 
         compose = true
     }
+
+    publishing {
+
+        singleVariant("release") {
+
+            withSourcesJar()
+        }
+    }
 }
 
 dependencies {
@@ -73,14 +80,24 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    //  ICON            :
-    implementation(libs.androidx.material.icons.extended)
-
     //  KOTLINX         :
-    implementation(libs.kotlinx.serialization.json)
-    implementation(libs.kotlinx.collections.immutable)
     implementation(libs.kotlinx.datetime)
+}
 
-    //  MODULE          :
-    implementation(project(":empty-format"))
+publishing {
+
+    publications {
+
+        register<MavenPublication>("release") {
+
+            groupId = "io.bashpsk"
+            artifactId = "empty-format"
+            version = "1.0.0"
+
+            afterEvaluate {
+
+                from(components["release"])
+            }
+        }
+    }
 }

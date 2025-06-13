@@ -1,4 +1,4 @@
-package io.bash_psk.empty_format
+package io.bashpsk.emptyformat
 
 import android.util.Log
 

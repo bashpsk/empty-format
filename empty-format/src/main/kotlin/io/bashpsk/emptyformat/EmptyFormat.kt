@@ -1,10 +1,10 @@
-package io.bash_psk.empty_format
+package io.bashpsk.emptyformat
 
 import android.content.Context
 import android.text.format.Formatter
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
-import io.bash_psk.empty_format.EmptyFormat.time
+import io.bashpsk.emptyformat.EmptyFormat.time
 import kotlinx.datetime.Clock
 import kotlinx.datetime.DatePeriod
 import kotlinx.datetime.DateTimeUnit
