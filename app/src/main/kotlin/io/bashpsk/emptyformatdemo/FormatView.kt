@@ -23,7 +23,7 @@ import kotlinx.datetime.Clock
 @Composable
 fun FormatView(
     modifier: Modifier = Modifier,
-    pattern: EmptyFormat.Pattern
+    pattern: EmptyFormat.DateTimePattern
 ) {
 
     val dateTimeInMillis by remember(pattern) {

@@ -25,7 +25,7 @@ fun FormatDemoScreen() {
         ) {
 
             items(
-                items = EmptyFormat.Pattern.entries.toImmutableList()
+                items = EmptyFormat.DateTimePattern.entries.toImmutableList()
             ) { pattern ->
 
                 FormatView(pattern = pattern)
