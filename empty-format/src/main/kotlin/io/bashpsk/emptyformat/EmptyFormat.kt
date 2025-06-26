@@ -556,7 +556,7 @@ object EmptyFormat {
 
             DateTimePattern.SHORT_DATE -> LocalDateTime.Format {
 
-                dayOfMonth(padding = Padding.ZERO)
+                day(padding = Padding.ZERO)
                 char(value = ':')
                 monthNumber(padding = Padding.ZERO)
                 char(value = ':')
@@ -567,7 +567,7 @@ object EmptyFormat {
 
                 monthName(names = monthNames)
                 char(value = ' ')
-                dayOfMonth(padding = Padding.ZERO)
+                day(padding = Padding.ZERO)
                 char(value = ',')
                 char(value = ' ')
                 year(padding = Padding.ZERO)
@@ -575,7 +575,7 @@ object EmptyFormat {
 
             DateTimePattern.SHORT_DATE_TIME -> LocalDateTime.Format {
 
-                dayOfMonth(padding = Padding.ZERO)
+                day(padding = Padding.ZERO)
                 char(value = ':')
                 monthNumber(padding = Padding.ZERO)
                 char(value = ':')
@@ -590,7 +590,7 @@ object EmptyFormat {
 
             DateTimePattern.SHORT_DATE_TIME_24 -> LocalDateTime.Format {
 
-                dayOfMonth(padding = Padding.ZERO)
+                day(padding = Padding.ZERO)
                 char(value = ':')
                 monthNumber(padding = Padding.ZERO)
                 char(value = ':')
@@ -608,7 +608,7 @@ object EmptyFormat {
                 char(value = ' ')
                 monthName(names = monthNames)
                 char(value = ' ')
-                dayOfMonth(padding = Padding.ZERO)
+                day(padding = Padding.ZERO)
                 char(value = ',')
                 char(value = ' ')
                 year(padding = Padding.ZERO)
@@ -627,7 +627,7 @@ object EmptyFormat {
                 char(value = ' ')
                 monthName(names = monthNames)
                 char(value = ' ')
-                dayOfMonth(padding = Padding.ZERO)
+                day(padding = Padding.ZERO)
                 char(value = ',')
                 char(value = ' ')
                 year(padding = Padding.ZERO)
@@ -644,7 +644,7 @@ object EmptyFormat {
                 char(value = ' ')
                 monthName(names = monthNames)
                 char(value = ' ')
-                dayOfMonth(padding = Padding.ZERO)
+                day(padding = Padding.ZERO)
                 char(value = ',')
                 char(value = ' ')
                 year(padding = Padding.ZERO)
@@ -667,7 +667,7 @@ object EmptyFormat {
                 char(value = ' ')
                 monthName(names = monthNames)
                 char(value = ' ')
-                dayOfMonth(padding = Padding.ZERO)
+                day(padding = Padding.ZERO)
                 char(value = ',')
                 char(value = ' ')
                 year(padding = Padding.ZERO)
@@ -683,7 +683,7 @@ object EmptyFormat {
 
             DateTimePattern.FILE_NAME -> LocalDateTime.Format {
 
-                dayOfMonth(padding = Padding.ZERO)
+                day(padding = Padding.ZERO)
                 char(value = '-')
                 monthNumber(padding = Padding.ZERO)
                 char(value = '-')
@@ -715,7 +715,7 @@ object EmptyFormat {
 
                 monthName(names = monthNames)
                 char(value = ' ')
-                dayOfMonth(padding = Padding.ZERO)
+                day(padding = Padding.ZERO)
             }
 
             DateTimePattern.SHORT_MONTH_YEAR -> LocalDateTime.Format {
@@ -739,7 +739,7 @@ object EmptyFormat {
 
             DateTimePattern.DAY_OF_MONTH -> LocalDateTime.Format {
 
-                dayOfMonth(padding = Padding.ZERO)
+                day(padding = Padding.ZERO)
             }
 
             DateTimePattern.MONTH_OF_YEAR -> LocalDateTime.Format {
@@ -751,7 +751,7 @@ object EmptyFormat {
 
                 year(padding = Padding.ZERO)
                 monthNumber(padding = Padding.ZERO)
-                dayOfMonth(padding = Padding.ZERO)
+                day(padding = Padding.ZERO)
                 hour(padding = Padding.ZERO)
                 minute(padding = Padding.ZERO)
                 second(padding = Padding.ZERO)
