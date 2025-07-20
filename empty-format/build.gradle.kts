@@ -58,6 +58,7 @@ android {
         singleVariant("release") {
 
             withSourcesJar()
+            withJavadocJar()
         }
     }
 }
@@ -93,13 +94,12 @@ publishing {
 
         register<MavenPublication>("release") {
 
-            groupId = "io.bashpsk"
-            artifactId = "empty-format"
-            version = "1.0.0"
-
             afterEvaluate {
 
                 from(components["release"])
+                groupId = "io.bashpsk"
+                artifactId = "empty-format"
+                version = "1.0.0"
             }
         }
     }
