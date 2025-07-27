@@ -10,13 +10,13 @@ Groovy DSL:
 ```groovy
 dependencies {
 
-    implementation 'com.github.bashpsk:empty-format:1.0.4'
+    implementation 'com.github.bashpsk:empty-format:1.0.6'
 }
 ```
 Kotlin DSL:
 ```kotlin
 dependencies {
 
-    implementation("com.github.bashpsk:empty-format:1.0.4")
+    implementation("com.github.bashpsk:empty-format:1.0.6")
 }
 ```
