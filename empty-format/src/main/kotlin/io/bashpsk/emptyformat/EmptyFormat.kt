@@ -1209,13 +1209,13 @@ object EmptyFormat {
      * RR is red, GG is green, and BB is blue, all in hexadecimal.
      *
      * @param color The [Color] object to convert.
-     * @return A [String] representing the color in "AARRGGBB" hexadecimal format.
-     * For example, `Color.Red` would be returned as "FFFF0000".
+     * @return A [String] representing the color in "#AARRGGBB" hexadecimal format.
+     * For example, `Color.Red` would be returned as "#FFFF0000".
      */
     @JvmStatic
     fun toColorHex(color: Color): String {
 
-        return String.format(locale = Locale.getDefault(), format = "%08X", color.toArgb())
+        return String.format(locale = Locale.getDefault(), format = "#%08X", color.toArgb())
     }
 
     /**
@@ -1229,28 +1229,46 @@ object EmptyFormat {
      *
      * The hexadecimal values are case-insensitive.
      *
+     * If the input string is not in a valid hexadecimal format, or if it does not represent
+     * a valid color, the function will return `null`.
+     *
      * @param hex The hexadecimal color string to convert. Must start with '#'.
-     * @return The corresponding [Color] object.
+     * @return The corresponding [Color] object, or `null` if parsing fails.
      */
     @JvmStatic
-    fun hexToColor(hex: String): Color {
+    fun hexToColor(hex: String): Color? {
 
         val cleanHex = hex.removePrefix("#")
 
         return try {
 
-            val colorLong = when (cleanHex.length) {
+            when (cleanHex.length) {
 
-                8 -> cleanHex.toULong(radix = 16).toLong()
-                6 -> ("FF$cleanHex").toULong(radix = 16).toLong()
-                else -> throw IllegalArgumentException("Invalid hex color string length : $hex")
+                8 -> {
+
+                    val red = cleanHex.substring(0, 2).toInt(16)
+                    val green = cleanHex.substring(2, 4).toInt(16)
+                    val blue = cleanHex.substring(4, 6).toInt(16)
+                    val alpha = cleanHex.substring(6, 8).toInt(16)
+
+                    Color(red = red, green = green, blue = blue, alpha = alpha)
+                }
+
+                6 -> {
+
+                    val red = cleanHex.substring(0, 2).toInt(16)
+                    val green = cleanHex.substring(2, 4).toInt(16)
+                    val blue = cleanHex.substring(4, 6).toInt(16)
+
+                    Color(red = red, green = green, blue = blue, alpha = 255)
+                }
+
+                else -> throw IllegalArgumentException("Invalid hex color string length : $hex.")
             }
-
-            Color(color = colorLong)
         } catch (exception: Exception) {
 
             Log.e(LOG_TAG, "Failed to parse hex to Color : $hex", exception)
-            Color.Unspecified
+            null
         }
     }
 
@@ -1268,24 +1286,17 @@ object EmptyFormat {
      * @return The Android color integer.
      */
     @JvmStatic
-    fun toAndroidColor(hex: String): Int {
+    fun hexToArgb(hex: String): Int? {
 
         val cleanHex = hex.removePrefix("#")
 
         return try {
 
-            val colorLong = when (cleanHex.length) {
-
-                8 -> cleanHex.toULong(radix = 16).toLong()
-                6 -> ("FF$cleanHex").toULong(radix = 16).toLong()
-                else -> throw IllegalArgumentException("Invalid hex color string length : $hex")
-            }
-
-            colorLong.toInt()
+            cleanHex.hexToInt(format = HexFormat.Default)
         } catch (exception: Exception) {
 
             Log.e(LOG_TAG, "Failed to parse hex to Android Color Int : $hex", exception)
-            Color.Unspecified.toArgb()
+            null
         }
     }
 
@@ -1409,6 +1420,24 @@ object EmptyFormat {
     }
 
     /**
+     * Calculates the aspect ratio of a given width and height.
+     *
+     * This function divides the width by the height to determine the aspect ratio.
+     * If the height is zero, it returns 0.0F to prevent division by zero errors.
+     *
+     * @param width The width of the dimension.
+     * @param height The height of the dimension.
+     * @return The aspect ratio as a Float (width / height), or 0.0F if height is 0.
+     */
+    @JvmStatic
+    fun findAspectRatio(width: Int, height: Int): Float {
+
+        if (height == 0) return 0.0F
+
+        return width / height.toFloat()
+    }
+
+    /**
      * Calculates the simplified aspect ratio of a given width and height.
      *
      * This function uses the greatest common divisor (GCD) to reduce the given dimensions
@@ -1420,12 +1449,12 @@ object EmptyFormat {
      *
      * Example:
      * ```
-     * findAspectRatio(1920, 1080) // returns "16:9"
-     * findAspectRatio(1080, 1920) // returns "9:16"
+     * aspectRatioLabel(1920, 1080) // returns "16:9"
+     * aspectRatioLabel(1080, 1920) // returns "9:16"
      * ```
      */
     @JvmStatic
-    fun findAspectRatio(width: Int, height: Int): String {
+    fun aspectRatioLabel(width: Int, height: Int): String {
 
         fun gcd(a: Int, b: Int): Int {
 
